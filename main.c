@@ -6,7 +6,7 @@
 /*   By: dongguki <dongguki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:16:42 by dongguki          #+#    #+#             */
-/*   Updated: 2021/10/30 15:17:59 by dongguki         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:20:38 by dongguki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ void	print_error(void)
 	exit(1);
 }
 
-
 void	first_process(int *fd, char **gv, char **en)
 {
-	int	infile;
+	int		infile;
 	char	**cmd;
 	char	*abs_path;
 
@@ -89,8 +88,7 @@ void	second_process(int *fd, char **gv, char **en)
 		exit(1);
 }
 
-
-int main(int gc, char **gv, char **en)
+int	main(int gc, char **gv, char **en)
 {
 	int	i;
 	int	fd[2];

@@ -4,7 +4,7 @@ all : $(NAME)
 
 $(NAME):
 		make -C ./libft all bonus
-		gcc *.c -o $@ -L./libft -lft -I./libft -I.
+		gcc *.c -Wall -Werror -Wextra -o $@ -L./libft -lft -I./libft -I.
 
 clean:
 	make -C ./libft fclean

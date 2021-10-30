@@ -12,6 +12,13 @@ char	*path(char *gv, char **en)
 	while (ft_strncmp(en[i], "PATH", 4))
 		i++;
 	split = ft_split(en[i] + 5, ':');
+	if (ft_strchr(gv, '/'))
+	{
+		i = ft_strlen(gv);
+		while (gv[i] != '/')
+			i--;
+		gv = ft_strdup(gv + ft_strlen(gv) - i + 1);
+	}
 	i = -1;
 	while(split[++i])
 	{
@@ -95,7 +102,7 @@ int main(int gc, char **gv, char **en)
 	}
 	else
 	{
-		sleep(0.2);
+		waitpid(pid, NULL, WNOHANG);
 		second_process(fd, gv, en);
 	}
 	close(fd[0]);

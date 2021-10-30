@@ -3,9 +3,15 @@ NAME= pipex
 all : $(NAME)
 
 $(NAME):
-		gcc *.c -o $@ -L. -lft
-		# ./$@ infile "grep bin" "wc -l" outfile
-		# rm $@
+		make -C ./libft all bonus
+		gcc *.c -o $@ -L./libft -lft -I./libft -I.
 
-fclean :
+clean:
+	make -C ./libft fclean
+
+fclean : clean
 		rm -rf pipex
+
+re: fclean all
+
+.PHONY: clean fclean all re

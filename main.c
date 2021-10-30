@@ -1,4 +1,15 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dongguki <dongguki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/30 15:16:42 by dongguki          #+#    #+#             */
+/*   Updated: 2021/10/30 15:17:59 by dongguki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 char	*path(char *gv, char **en)
@@ -20,7 +31,7 @@ char	*path(char *gv, char **en)
 		gv = ft_strdup(gv + ft_strlen(gv) - i + 1);
 	}
 	i = -1;
-	while(split[++i])
+	while (split[++i])
 	{
 		slash = ft_strjoin(split[i], "/");
 		singlepath = ft_strjoin(slash, gv);
@@ -53,14 +64,13 @@ void	first_process(int *fd, char **gv, char **en)
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	close(fd[1]);
-
-	if(execve(abs_path, cmd, en) == -1)
+	if (execve(abs_path, cmd, en) == -1)
 		exit(1);
 }
 
 void	second_process(int *fd, char **gv, char **en)
 {
-	int	outfile;
+	int		outfile;
 	char	**cmd;
 	char	*abs_path;
 
@@ -75,37 +85,31 @@ void	second_process(int *fd, char **gv, char **en)
 	dup2(outfile, STDOUT_FILENO);
 	close(fd[1]);
 	close(fd[0]);
-	if(execve(abs_path, cmd, en) == -1)
+	if (execve(abs_path, cmd, en) == -1)
 		exit(1);
 }
 
 
 int main(int gc, char **gv, char **en)
 {
-
 	int	i;
 	int	fd[2];
 	int	pid;
+
 	if (gc != 5)
 		print_error();
-
 	i = pipe(fd);
 	if (i == -1)
 		exit(1);
-
 	pid = fork();
 	if (pid == -1)
 		exit(1);
 	if (!pid)
-	{
 		first_process(fd, gv, en);
-	}
 	else
 	{
 		waitpid(pid, NULL, WNOHANG);
 		second_process(fd, gv, en);
 	}
-	close(fd[0]);
-	close(fd[1]);
 	return (0);
 }

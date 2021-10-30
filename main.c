@@ -6,7 +6,7 @@
 /*   By: dongguki <dongguki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:16:42 by dongguki          #+#    #+#             */
-/*   Updated: 2021/10/30 15:20:38 by dongguki         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:49:47 by dongguki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ char	*path(char *gv, char **en)
 			return (singlepath);
 	}
 	return (0);
-}
-
-void	print_error(void)
-{
-	exit(1);
 }
 
 void	first_process(int *fd, char **gv, char **en)
@@ -90,14 +85,13 @@ void	second_process(int *fd, char **gv, char **en)
 
 int	main(int gc, char **gv, char **en)
 {
-	int	i;
 	int	fd[2];
 	int	pid;
 
 	if (gc != 5)
-		print_error();
-	i = pipe(fd);
-	if (i == -1)
+		exit(1);
+	pid = pipe(fd);
+	if (pid == -1)
 		exit(1);
 	pid = fork();
 	if (pid == -1)
